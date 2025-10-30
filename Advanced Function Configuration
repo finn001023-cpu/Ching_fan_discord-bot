@@ -1,0 +1,264 @@
+Customizing Core Parameters
+
+Mute Duration & Timing
+python
+
+# Python - Modify these constants
+MUTE_MINUTES = 1440  # Change mute duration (in minutes)
+TZ_TAIPEI = pytz.timezone("Asia/Taipei")  # Change timezone
+
+java
+
+// Java - Modify these constants
+private static final int MUTE_MINUTES = 1440;
+private static final ZoneId TZ_TAIPEI = ZoneId.of("Asia/Taipei");
+
+Reward System Customization
+python
+
+# Customize reward amounts and messages
+REWARD_AMOUNT = 2000
+REWARD_CURRENCY = "[custom currency]"
+REWARD_PROVIDER = "Contact administrator to claim"
+
+Member Filtering Logic
+
+Exclusion Rules
+python
+
+# Modify filtering logic in _run_for_guild method
+async for m in guild.fetch_members(limit=None):
+    if m.bot: continue  # Exclude bots
+    if m.id == EXCLUDED_USER_ID: continue  # Specific user exclusion
+    if any(r.id == EXEMPT_ROLE_ID for r in m.roles): continue  # Role-based exclusion
+
+Custom Filter Conditions
+python
+
+# Add custom conditions like:
+if m.joined_at > datetime.now() - timedelta(days=7): continue  # Exclude new members
+if m.premium_since: continue  # Exclude boosters
+
+Scheduling System
+
+Custom Schedule Times
+python
+
+# For custom execution times beyond midnight
+def _seconds_until_custom_time(hour: int, minute: int = 0) -> float:
+    now = datetime.now(TZ_TAIPEI)
+    target = TZ_TAIPEI.localize(datetime(now.year, now.month, now.day, hour, minute, 0))
+    if now >= target:
+        target += timedelta(days=1)
+    return max(1.0, (target - now).total_seconds())
+
+Event Handler Extensions
+
+Additional Member Events
+python
+
+@commands.Cog.listener()
+async def on_member_remove(self, member: discord.Member):
+    """Trigger when member leaves"""
+    # Custom leave logic here
+    pass
+
+@commands.Cog.listener()
+async def on_member_update(self, before: discord.Member, after: discord.Member):
+    """Track role changes"""
+    if before.roles != after.roles:
+        # Handle role change logic
+        pass
+
+Data Persistence Customization
+
+Custom Storage Backends
+python
+
+# Replace JSON with database
+async def _save_to_database(self, data: dict):
+    # Implement database logic
+    pass
+
+# Add data cleanup routines
+async def _cleanup_old_records(self):
+    # Remove records older than X days
+    pass
+
+繁體中文
+進階函數調整
+核心參數自定義
+
+禁言時間與排程設定
+python
+
+# Python - 修改這些常數
+MUTE_MINUTES = 1440  # 更改禁言時長（分鐘）
+TZ_TAIPEI = pytz.timezone("Asia/Taipei")  # 更改時區
+
+java
+
+// Java - 修改這些常數
+private static final int MUTE_MINUTES = 1440;
+private static final ZoneId TZ_TAIPEI = ZoneId.of("Asia/Taipei");
+
+獎勵系統自定義
+python
+
+# 自定義獎勵金額和訊息
+REWARD_AMOUNT = 2000
+REWARD_CURRENCY = "[自定義幣值]"
+REWARD_PROVIDER = "找管理員領取"
+
+成員過濾邏輯
+
+排除規則設定
+python
+
+# 在 _run_for_guild 方法中修改過濾邏輯
+async for m in guild.fetch_members(limit=None):
+    if m.bot: continue  # 排除機器人
+    if m.id == EXCLUDED_USER_ID: continue  # 排除特定用戶
+    if any(r.id == EXEMPT_ROLE_ID for r in m.roles): continue  # 身分組排除
+
+自定義過濾條件
+python
+
+# 添加自定義條件如：
+if m.joined_at > datetime.now() - timedelta(days=7): continue  # 排除新成員
+if m.premium_since: continue  # 排除伺服器加成者
+
+排程系統調整
+
+自定義執行時間
+python
+
+# 用於午夜以外的自定義執行時間
+def _seconds_until_custom_time(hour: int, minute: int = 0) -> float:
+    now = datetime.now(TZ_TAIPEI)
+    target = TZ_TAIPEI.localize(datetime(now.year, now.month, now.day, hour, minute, 0))
+    if now >= target:
+        target += timedelta(days=1)
+    return max(1.0, (target - now).total_seconds())
+
+事件處理器擴展
+
+額外成員事件
+python
+
+@commands.Cog.listener()
+async def on_member_remove(self, member: discord.Member):
+    """成員離開時觸發"""
+    # 自定義離開邏輯
+    pass
+
+@commands.Cog.listener()
+async def on_member_update(self, before: discord.Member, after: discord.Member):
+    """追蹤身分組變更"""
+    if before.roles != after.roles:
+        # 處理身分組變更邏輯
+        pass
+
+資料持久化自定義
+
+自定義儲存後端
+python
+
+# 用資料庫替代 JSON
+async def _save_to_database(self, data: dict):
+    # 實作資料庫邏輯
+    pass
+
+# 添加資料清理程序
+async def _cleanup_old_records(self):
+    # 移除超過 X 天的紀錄
+    pass
+
+简体中文
+进阶函数调整
+核心参数自定义
+
+禁言时间与排程设定
+python
+
+# Python - 修改这些常数
+MUTE_MINUTES = 1440  # 更改禁言时长（分钟）
+TZ_TAIPEI = pytz.timezone("Asia/Taipei")  # 更改时区
+
+java
+
+// Java - 修改这些常数
+private static final int MUTE_MINUTES = 1440;
+private static final ZoneId TZ_TAIPEI = ZoneId.of("Asia/Taipei");
+
+奖励系统自定义
+python
+
+# 自定义奖励金额和讯息
+REWARD_AMOUNT = 2000
+REWARD_CURRENCY = "[自定义币值]"
+REWARD_PROVIDER = "找管理员领取"
+
+成员过滤逻辑
+
+排除规则设定
+python
+
+# 在 _run_for_guild 方法中修改过滤逻辑
+async for m in guild.fetch_members(limit=None):
+    if m.bot: continue  # 排除机器人
+    if m.id == EXCLUDED_USER_ID: continue  # 排除特定用户
+    if any(r.id == EXEMPT_ROLE_ID for r in m.roles): continue  # 身份组排除
+
+自定义过滤条件
+python
+
+# 添加自定义条件如：
+if m.joined_at > datetime.now() - timedelta(days=7): continue  # 排除新成员
+if m.premium_since: continue  # 排除服务器加成者
+
+排程系统调整
+
+自定义执行时间
+python
+
+# 用于午夜以外的自定义执行时间
+def _seconds_until_custom_time(hour: int, minute: int = 0) -> float:
+    now = datetime.now(TZ_TAIPEI)
+    target = TZ_TAIPEI.localize(datetime(now.year, now.month, now.day, hour, minute, 0))
+    if now >= target:
+        target += timedelta(days=1)
+    return max(1.0, (target - now).total_seconds())
+
+事件处理器扩展
+
+额外成员事件
+python
+
+@commands.Cog.listener()
+async def on_member_remove(self, member: discord.Member):
+    """成员离开时触发"""
+    # 自定义离开逻辑
+    pass
+
+@commands.Cog.listener()
+async def on_member_update(self, before: discord.Member, after: discord.Member):
+    """追踪身份组变更"""
+    if before.roles != after.roles:
+        # 处理身份组变更逻辑
+        pass
+
+资料持久化自定义
+
+自定义储存后端
+python
+
+# 用数据库替代 JSON
+async def _save_to_database(self, data: dict):
+    # 实作数据库逻辑
+    pass
+
+# 添加资料清理程序
+async def _cleanup_old_records(self):
+    # 移除超过 X 天的记录
+    pass
